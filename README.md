@@ -8,3 +8,7 @@
 - commit it. `git commit -am 'new feature'`
 - Push it `git push origin my-new-feature`
 - Go to the forked repo and submit the pull request.
+- NOTE: Before doing this make sure to use isort and flake8 and black 
+   - Black - Formats you code
+   - isort - Formats your imports
+   - flake8 - Checks for errors in your code.    
