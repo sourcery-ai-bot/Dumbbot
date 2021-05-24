@@ -18,4 +18,6 @@
   - isort: `isort filename.py`
   - black: `black filename.py`
   - flake8: `flake8 filename.py`
-
+##### to install them use
+```bash
+python3 -m pip -r requirements-dev.txt
