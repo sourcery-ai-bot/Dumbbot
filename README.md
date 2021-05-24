@@ -6,5 +6,5 @@
 - Fork the repo
 - use this for new branch `git checkout -b my-new-feature`
 - commit it. `git commit -am 'new feature'`
-- Push it `it push origin my-new-feature`
+- Push it `git push origin my-new-feature`
 - Go to the forked repo and submit the pull request.
