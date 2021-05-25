@@ -95,7 +95,7 @@ class Fun(commands.Cog):
             "https://pypi.org/pypi/{module}/json".format(module=arg) # for this we will use the endpoints of pypi.org
         )
 """
-Taken and modified from https://github.com/TechStruck/TechStruck-Bot/blob/main/bot/cogs/pypi.py
+The pypi command is taken and modified from https://github.com/TechStruck/TechStruck-Bot/blob/main/bot/cogs/pypi.py
 """
     @commands.command()
     async def pypi(self, ctx, pkg: str):
