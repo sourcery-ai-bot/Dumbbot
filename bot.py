@@ -1,11 +1,11 @@
 from typing import Iterable
 
+from asyncpg.pool import create_pool
 import discord
 from discord import Color, Embed, utils
 from discord.ext import commands, flags, tasks
 
-
-class DumbBot(commands.Bot):
+class DumbBot(commands.Bot): 
     def __init__(
         self,
         *,
@@ -18,7 +18,6 @@ class DumbBot(commands.Bot):
             command_prefix=".",
             intents=discord.Intents.all(),
         )
-
         def load_exts_(exts: str):
             for ext in exts:
                 try:
@@ -39,5 +38,5 @@ class DumbBot(commands.Bot):
             except Exception as theerror:
                 raise theerror
 
-        async def on_ready(self):
-            print("ready")
+    async def on_ready(self):
+        print("ready")
