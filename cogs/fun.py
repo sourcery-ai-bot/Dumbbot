@@ -1,5 +1,6 @@
 import asyncio
 
+import aiohttp
 import discord
 from discord import Color, Embed, Member, utils
 from discord.ext import commands, flags, tasks
@@ -84,6 +85,46 @@ class Fun(commands.Cog):
             )
         except ValueError:
             await ctx.send("That was not a numer")
+
+    @property
+    def session(self) -> aiohttp.ClientSession:
+        return self.bot.http._HTTPClient__session
+
+    async def find_pkg(self, arg: str):
+        return await self.session.get(
+            "https://pypi.org/pypi/{module}/json".format(module=arg)
+        )
+"""
+Taken and modified from https://github.com/TechStruck/TechStruck-Bot/blob/main/bot/cogs/pypi.py
+"""
+    @commands.command()
+    async def pypi(self, ctx, pkg: str):
+        pypi_response = await self.find_pkg(pkg)
+        try:
+            pypi_json = await pypi_response.json()
+        except:
+            await ctx.send("No module named {} was not found".format(pkg))
+
+        result = pypi_json["info"]
+
+        def getval(key):
+            return result[key] or "Unknown"
+
+        name = getval("name")
+        author = getval("author")
+        project_url = getval("project_url")
+        _license = getval("license")
+        description = getval("summary")
+        home_page = getval("home_page")
+        embed = discord.Embed(
+            description=f"[**{name}**]({home_page})", color=ctx.author.color
+        )
+        embed.add_field(name="Author", value=author)
+        embed.add_field(name="license", value=_license, inline=False)
+        embed.add_field(name="Summary", value=description)
+        embed.add_field(name="Project url", value=project_url, inline=False)
+        embed.add_field(name="Home Page", value=home_page)
+        await ctx.send(embed=embed)
 
 
 def setup(bot: DumbBot):
