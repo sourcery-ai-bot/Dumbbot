@@ -92,7 +92,7 @@ class Fun(commands.Cog):
 
     async def find_pkg(self, arg: str):
         return await self.session.get(
-            "https://pypi.org/pypi/{module}/json".format(module=arg)
+            "https://pypi.org/pypi/{module}/json".format(module=arg) # for this we will use the endpoints of pypi.org
         )
 """
 Taken and modified from https://github.com/TechStruck/TechStruck-Bot/blob/main/bot/cogs/pypi.py
