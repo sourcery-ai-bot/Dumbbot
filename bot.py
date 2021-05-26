@@ -5,7 +5,7 @@ import discord
 from discord import Color, Embed, utils
 from discord.ext import commands, flags, tasks
 
-class DumbBot(commands.Bot): 
+class DumbBot(commands.AutoShardedBot): 
     def __init__(
         self,
         *,
@@ -17,6 +17,7 @@ class DumbBot(commands.Bot):
         super().__init__(
             command_prefix=".",
             intents=discord.Intents.all(),
+            shard_count=5
         )
         def load_exts_(exts: str):
             for ext in exts:
@@ -34,9 +35,12 @@ class DumbBot(commands.Bot):
                 self.load_extension("cogs.rtfm")
                 self.load_extension("cogs.helpers")
                 self.load_extension("cogs.mod")
+                self.load_extension("cogs.tags")
                 self.load_extension("cogs.events.events")
             except Exception as theerror:
                 raise theerror
+        if load_jsk:
+            self.load_extension("jishaku")
 
     async def on_ready(self):
         print("ready")
