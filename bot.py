@@ -5,6 +5,7 @@ import discord
 from discord import Color, Embed, utils
 from discord.ext import commands, flags, tasks
 
+
 class DumbBot(commands.AutoShardedBot): 
     def __init__(
         self,
@@ -15,32 +16,32 @@ class DumbBot(commands.AutoShardedBot):
         load_jsk: bool = True
     ):
         super().__init__(
-            command_prefix=".",
+            command_prefix=prefix,
             intents=discord.Intents.all(),
             shard_count=5
         )
-        def load_exts_(exts: str):
-            for ext in exts:
-                try:
-                    self.load_extension(ext)
-                except Exception as e:
-                    raise e
 
         if load_exts:
-            try:
-                self.load_extension("core")
-                self.load_extension("cogs.fun")
-                self.load_extension("cogs.code_runner")
-                self.load_extension("cogs.economy")
-                self.load_extension("cogs.rtfm")
-                self.load_extension("cogs.helpers")
-                self.load_extension("cogs.mod")
-                self.load_extension("cogs.tags")
-                self.load_extension("cogs.events.events")
-            except Exception as theerror:
-                raise theerror
+            self.load_ext("core")
+            self.load_ext("cogs.fun")
+            self.load_ext("cogs.code_runner")
+            self.load_ext("cogs.economy")
+            self.load_ext("cogs.rtfm")
+            self.load_ext("cogs.helpers")
+            self.load_ext("cogs.mod")
+            self.load_ext("cogs.tags")
+            self.load_ext("cogs.events.events")
+
         if load_jsk:
-            self.load_extension("jishaku")
+            self.load_ext("jishaku")
+
+
+    def load_ext(self, ext: str):
+        try:
+            self.load_extension(ext)
+        except Exception as e:
+            raise e
+
 
     async def on_ready(self):
         print("ready")
