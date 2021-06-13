@@ -2,11 +2,12 @@ import discord
 from discord import Color, Embed, utils
 from discord.ext import commands, flags, tasks
 
+from models import GuildModel
 from bot import DumbBot
 
 
 class Common(commands.Cog):
-    def __init__(self, bot: DumbBot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
 
     @commands.command(aliases=["latency"], name="ping")
@@ -31,6 +32,16 @@ class Common(commands.Cog):
 
         await ctx.send(embed=embed)
 
+    @commands.command()
+    async def prefix(self, ctx, prefix):
+        if len(prefix) > 5:
+            await ctx.send("Your prefix can't be longer than 5 charaters!")
+            return
+        else:
+            self.bot.prefix_cache[ctx.guild.id] = prefix
+            await GuildModel.filter(id=ctx.guild.id).update(prefix=prefix)
+            await ctx.send(f"My prefix has been set to {prefix}")
 
-def setup(bot: DumbBot):
+
+def setup(bot: commands.Bot):
     bot.add_cog(Common(bot))
