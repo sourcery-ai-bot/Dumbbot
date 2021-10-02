@@ -62,8 +62,7 @@ class Moderaion(commands.Cog):
         if str(ctx.guild.id) not in warns:
             warns[str(ctx.guild.id)] = {}
         if str(member.id) not in warns[str(ctx.guild.id)]:
-            warns[str(ctx.guild.id)][str(member.id)] = {}
-            warns[str(ctx.guild.id)][str(member.id)]["warns"] = 1
+            warns[str(ctx.guild.id)][str(member.id)] = {'warns': 1}
             warns[str(ctx.guild.id)][str(member.id)]["warnings"] = [reason]
         else:
             warns[str(ctx.guild.id)][str(member.id)]["warnings"].append(reason)
@@ -84,11 +83,9 @@ class Moderaion(commands.Cog):
         with open("storage_data/warns.json", "r") as f:
             warns = json.load(f)
 
-        num = 1
         warnings = discord.Embed(title=f"{member}'s warns")
-        for warn in warns[str(ctx.guild.id)][str(member.id)]["warnings"]:
+        for num, warn in enumerate(warns[str(ctx.guild.id)][str(member.id)]["warnings"], start=1):
             warnings.add_field(name=f"Warn {num}", value=warn, inline=False)
-            num += 1
         await ctx.send(embed=warnings)
 
 

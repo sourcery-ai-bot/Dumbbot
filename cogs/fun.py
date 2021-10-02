@@ -14,7 +14,7 @@ class Fun(commands.Cog):
 
     @commands.command()
     async def coffee(self, ctx, user: Member = None):
-        if user == None:
+        if user is None:
             await ctx.send("{} coffeeeeee!!!".format(ctx.author.name))
         if user.bot:
             return await ctx.send(

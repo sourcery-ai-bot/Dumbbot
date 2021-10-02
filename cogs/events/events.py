@@ -23,11 +23,11 @@ class Events(commands.Cog):
             )
             await ctx.send(msg)
             return
-        if isinstance(error, commands.MissingRequiredArgument):
-            await ctx.send(str(error))
-            return
-        else:
+        if not isinstance(error, commands.MissingRequiredArgument):
             raise error
+
+        await ctx.send(str(error))
+        return
 
 
 def setup(bot: DumbBot):

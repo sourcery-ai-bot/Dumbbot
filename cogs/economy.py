@@ -64,7 +64,7 @@ class Economy(commands.Cog):
     @commands.command(aliases=["with"])
     async def withdraw(self, ctx, amount=None):
         await open_account(ctx.author)
-        if amount == None:
+        if amount is None:
             await ctx.send("Ok, you wanna tell me how much you want to withdraw now?")
             return
 
@@ -90,7 +90,7 @@ class Economy(commands.Cog):
     async def deposit(self, ctx, amount=None):
         try:
             await open_account(ctx.author)
-            if amount == None:
+            if amount is None:
                 await ctx.send(
                     "Ok, you wanna tell me how much you want to deposit now?"
                 )
@@ -119,7 +119,7 @@ class Economy(commands.Cog):
     async def sendmoney(self, ctx, member: discord.Member, amount=None):
         await open_account(ctx.author)
         await open_account(member)
-        if amount == None:
+        if amount is None:
             await ctx.send("Ok, you wanna tell me how much you want to withdraw now?")
             return
 

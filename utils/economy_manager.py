@@ -8,10 +8,7 @@ async def open_account(user):
     if str(user.id) in users:
         return False
     else:
-        users[str(user.id)] = {}
-        users[str(user.id)]["wallet"] = 100
-        users[str(user.id)]["bank"] = 0
-
+        users[str(user.id)] = {'wallet': 100, 'bank': 0}
     with open("storage_data/bank.json", "w") as f:
         json.dump(users, f, indent=4)
     return True
@@ -32,8 +29,7 @@ async def update_bank(user, change=0, mode="wallet"):
     with open("storage_data/bank.json", "w") as f:
         json.dump(users, f, indent=4)
 
-    bal = [users[str(user.id)]["wallet"], users[str(user.id)]["bank"]]
-    return bal
+    return [users[str(user.id)]["wallet"], users[str(user.id)]["bank"]]
 
 
 mainshop = [
@@ -53,7 +49,7 @@ async def buy_this(user, item_name, amount):
             price = item["price"]
             break
 
-    if name_ == None:
+    if name_ is None:
         return [False, 1]
 
     cost = price * amount
@@ -77,7 +73,7 @@ async def buy_this(user, item_name, amount):
                 t = 1
                 break
             index += 1
-        if t == None:
+        if t is None:
             obj = {"item": item_name, "amount": amount}
             users[str(user.id)]["bag"].append(obj)
 
